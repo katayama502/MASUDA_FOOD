@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git -C /Applications/MAMP/htdocs/TABETE worktree list)",
+      "Bash(git -C /Applications/MAMP/htdocs/TABETE branch -a)"
+    ]
+  }
+}
