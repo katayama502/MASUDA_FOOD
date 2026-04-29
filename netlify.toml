@@ -1,0 +1,23 @@
+[build]
+  command = "npm run build"
+  publish = ".next"
+
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
+
+[functions]
+  node_bundler = "esbuild"
+  directory = "netlify/functions"
+
+# ── Scheduled Functions (Vercel cronの代替) ──────────────────
+# notify-new-listing: 2分ごと
+[functions."notify-new-listing"]
+  schedule = "*/2 * * * *"
+
+# expire-reservations: 30分ごと
+[functions."expire-reservations"]
+  schedule = "*/30 * * * *"
+
+# monthly-payout: 毎月末 23:55
+[functions."monthly-payout"]
+  schedule = "55 23 28-31 * *"
