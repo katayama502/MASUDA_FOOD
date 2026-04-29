@@ -1,0 +1,104 @@
+@import url('https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;500;600;700;800&family=Zen+Kaku+Gothic+New:wght@400;500;700;900&family=Noto+Serif+JP:wght@400;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── Design Tokens & Base Styles ── */
+@layer base {
+  :root {
+    --c-akane:         200 71 60;
+    --c-akane-deep:    158 42 31;
+    --c-akane-soft:    232 181 174;
+    --c-sumi:          31 27 23;
+    --c-sumi-2:        58 51 45;
+    --c-sumi-3:        107 98 89;
+    --c-sumi-4:        154 143 132;
+    --c-kinari:        245 239 228;
+    --c-kinari-2:      237 229 213;
+    --c-kinari-3:      220 208 184;
+    --c-shiro:         251 248 241;
+    --c-wakana:        107 142 78;
+    --c-wakana-soft:   197 210 168;
+    --c-yamabuki:      217 164 65;
+    --c-yamabuki-soft: 242 221 176;
+
+    --font-display: "Shippori Mincho", "Noto Serif JP", serif;
+    --font-sans:    "Zen Kaku Gothic New", system-ui, sans-serif;
+  }
+
+  body {
+    @apply bg-kinari text-sumi font-sans antialiased;
+    font-feature-settings: "palt";
+    text-rendering: optimizeLegibility;
+  }
+
+  h1, h2, h3 {
+    @apply font-display tracking-tight;
+  }
+
+  button:focus { outline: none; }
+  button:focus-visible { @apply outline outline-2 outline-offset-2 outline-akane; }
+}
+
+/* ── Utilities ── */
+@layer utilities {
+  /* Paper texture */
+  .paper {
+    background: theme('colors.shiro');
+    position: relative;
+  }
+  .paper::before {
+    content: "";
+    position: absolute; inset: 0;
+    background-image:
+      radial-gradient(rgba(31,27,23,0.025) 1px, transparent 1px),
+      radial-gradient(rgba(31,27,23,0.02) 1px, transparent 1px);
+    background-size: 18px 18px, 12px 12px;
+    background-position: 0 0, 6px 6px;
+    pointer-events: none;
+  }
+
+  /* Brush underline */
+  .brush-underline {
+    position: relative;
+    display: inline-block;
+  }
+  .brush-underline::after {
+    content: "";
+    position: absolute;
+    left: -2%; right: -2%;
+    bottom: -4px;
+    height: 6px;
+    background: theme('colors.akane.DEFAULT');
+    border-radius: 50% 60% 40% 50% / 100% 80% 100% 60%;
+    opacity: 0.55;
+  }
+
+  /* Scrollbar hide */
+  .h-scroll::-webkit-scrollbar { height: 0; }
+  .h-scroll { scrollbar-width: none; -ms-overflow-style: none; }
+}
+
+/* ── Animations ── */
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.fade-up { animation: fade-up 0.32s ease both; }
+
+@keyframes scale-in {
+  from { opacity: 0; transform: scale(0.94); }
+  to   { opacity: 1; transform: scale(1); }
+}
+.scale-in { animation: scale-in 0.3s cubic-bezier(0.2, 0.7, 0.3, 1.1) both; }
+
+@keyframes gentle-pulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50%       { transform: scale(1.04); opacity: 0.85; }
+}
+.pulse { animation: gentle-pulse 1.6s ease-in-out infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+  .fade-up, .scale-in, .pulse { animation: none; }
+}
